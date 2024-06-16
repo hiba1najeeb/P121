@@ -40,7 +40,7 @@ while True:
         # Inverting the mask
         inverted_mask = cv2.bitwise_not(mask)
 
-
+        person = cv2.bitwise_and(frame, frame , mask = mask) 
 
         # Create the final image using np.where()
         final_image = np.where(frame== 0, frame, resized_image)
