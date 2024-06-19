@@ -28,6 +28,7 @@ while True:
 
         # flip it
         frame = cv2.flip(frame , 1)
+        frame_rgb = cv2.cvtColor(frame,cv2.COLOR_BGR2RGB)
 
 
         # creating thresholds
@@ -35,15 +36,15 @@ while True:
         upper_bound = np.array([255, 255, 255])
 
     # Thresholding image
-        mask = cv2.inRange(frame, lower_bound, upper_bound)
+        mask = cv2.inRange(frame_rgb, lower_bound, upper_bound)
 
         # Inverting the mask
-        inverted_mask = cv2.bitwise_not(mask)
+        mask = cv2.bitwise_not(mask)
 
         person = cv2.bitwise_and(frame, frame , mask = mask) 
 
         # Create the final image using np.where()
-        final_image = np.where(frame== 0, frame, resized_image)
+        final_image = np.where(person== 0,resized_image, person)
 
         # Show the final image
         cv2.imshow('Final Image', final_image)
